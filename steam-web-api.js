@@ -1,3 +1,5 @@
+var http = require('http');
+
 function steamWebApi(apiKey) {
 	if(apiKey === undefined) {
 		throw 'No API key definded';
@@ -15,7 +17,7 @@ function steamWebApi(apiKey) {
 	(appId, options, callback) or (appId, callback)
 */
 steamWebApi.prototype.getNewsForApp = function(appId, a, b) {
-	return makeRequest('ISteamNews/GetNewsForApp/v0002/?appid=' + appId,  b === undefined ? {} : a, b === undefined ? a : b);
+	return makeRequest('/ISteamNews/GetNewsForApp/v0002/?appid=' + appId,  b === undefined ? {} : a, b === undefined ? a : b);
 };
 
 /**
@@ -24,7 +26,7 @@ steamWebApi.prototype.getNewsForApp = function(appId, a, b) {
 	(gameId, options, callback) or (gameId, callback)
 */
 steamWebApi.prototype.getGlobalAchievementPercentagesForApp = function(gameId, a, b) {
-	return makeRequest('ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=' + gameId,  b === undefined ? {} : a, b === undefined ? a : b);
+	return makeRequest('/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=' + gameId,  b === undefined ? {} : a, b === undefined ? a : b);
 };
 
 /**
@@ -33,7 +35,7 @@ steamWebApi.prototype.getGlobalAchievementPercentagesForApp = function(gameId, a
 	(steamIds, options, callback) or (steamIds, callback)
 */
 steamWebApi.prototype.getPlayerSummaries = function(steamIds, a, b) {
-	return makeRequest('ISteamUser/GetPlayerSummaries/v0002/?key=' + this.apiKey + '&steamids=' + splat(steamIds).join(','),  b === undefined ? {} : a, b === undefined ? a : b);
+	return makeRequest('/ISteamUser/GetPlayerSummaries/v0002/?key=' + this.apiKey + '&steamids=' + splat(steamIds).join(','),  b === undefined ? {} : a, b === undefined ? a : b);
 };
 
 /**
@@ -46,7 +48,7 @@ steamWebApi.prototype.getFriendList = function(steamId, a, b) {
 	if(!options.relationship) {
 		options.relationship = 'friend';
 	}
-	return makeRequest('ISteamUser/GetPlayerSummaries/v0002/?key=' + this.apiKey + '&steamid=' + steamId,  options, b === undefined ? a : b);
+	return makeRequest('/ISteamUser/GetFriendList/v0001/?key=' + this.apiKey + '&steamid=' + steamId,  options, b === undefined ? a : b);
 };
 
 /**
@@ -71,9 +73,9 @@ function makeRequest(path, opts, callback) {
 		path += '&' + key + '=' + opts[key];
 	}
 	
-	req = https.request({
-		host: 'http://api.steampowered.com',
-		port: 443,
+	req = http.request({
+		host: 'api.steampowered.com',
+		port: 80,
 		path: path,
 		method: 'GET'
 	}, function(res) {
