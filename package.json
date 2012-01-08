@@ -1,0 +1,18 @@
+{
+	"author": "Timothy J. Marshall <timothyjmarshall@gmail.com> (http://timothyjmarshall.com)",
+	"name": "steam-web-api",
+	"description": "Implements the Steam Web API",
+	"version": "0.1.0",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/tmarshall/Steam-Web-API.git"
+	},
+	"main": "steam-web-api",
+	"engines": {
+		"node": ">=0.4.11"
+	},
+	"licenses": [{
+		"type": "MIT",
+		"url": "http://github.com/tmarshall/Steam-Web-API/raw/master/LICENSE"
+	}]
+}
