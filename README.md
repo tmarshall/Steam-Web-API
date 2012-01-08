@@ -7,7 +7,7 @@ This is a Node implementation of an [API](https://developer.valvesoftware.com/wi
 
 ## Dependencies
 
-This module uses https.
+This module uses http.
 
 ## Starting with the API
 
